@@ -3,6 +3,7 @@
     import {
         parse,
         HtmlGenerator,
+    // @ts-ignore
     } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs";
     import Highlight from "svelte-highlight";
     import latex from "svelte-highlight/languages/latex";
@@ -27,6 +28,10 @@
             },
             body: JSON.stringify(data),
         });
+
+        if(response.body === null) {
+            throw new Error("Response body is null");
+        }
 
         const reader = response.body.getReader();
         while (true) {
@@ -106,6 +111,7 @@
         let end = textTmp.match(/\\end{.*?}/g) || [];
         for (let i = 0; i < begin.length; i++) {
             let name = begin[i].replace("\\begin{", "").replace("}", "");
+            // @ts-ignore
             if (!end.includes(`\\end{${name}}`)) {
                 textTmp += `\\end{${name}}\n`;
             }
@@ -135,6 +141,7 @@
         /**
          * @type {HTMLIFrameElement}
          */
+        // @ts-ignore
         const resultEl = document.getElementById("result") || {};
         if (resultEl) {
             resultEl.srcdoc = doc.documentElement.outerHTML;
