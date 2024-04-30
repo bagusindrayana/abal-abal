@@ -59,6 +59,8 @@
         
         //replace number with % with \\%, example 100% -> 100\\%, using regex
         textTmp = textTmp.replaceAll(/(\d+)%/g, "$1\\%");
+
+        textTmp = textTmp.replaceAll("_", " \\_");
         
 
         textTmp = textTmp.replaceAll(" [", " {[");
