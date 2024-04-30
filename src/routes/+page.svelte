@@ -18,7 +18,9 @@
      * @param {string} prompt
      */
     async function* streamChatCompletions(prompt) {
+        console.log(API_URL);
         const url = `${API_URL}/request-message`;
+        console.log(url);
         var data = { message: prompt, style: style };
         //fetch stream response
         const response = await fetch(url, {
